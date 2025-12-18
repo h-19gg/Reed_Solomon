@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تصحيح الأخطاء - Reed-Solomon | المهندس حسين فاهم الخزعلي</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="نظام متقدم لتصحيح أخطاء الإرسال باستخدام خوارزمية Reed-Solomon - تصميم وتطوير المهندس حسين فاهم الخزعلي">
+    <meta name="keywords" content="Reed-Solomon, تصحيح أخطاء, اتصالات, حسين فاهم, هندسة اتصالات">
+    <meta name="author" content="المهندس حسين فاهم الخزعلي">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/logo/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>جاري تحميل النظام...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <div class="logo-brand">
+                <div class="logo-icon">
+                    <i class="fas fa-satellite-dish"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Reed-Solomon</h1>
+                    <p class="tagline">مطور النظام: حسين فاهم الخزعلي</p>
+                </div>
+            </div>
+
+            <!-- Main Menu -->
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> الرئيسية</a></li>
+                <li><a href="#encoder" class="nav-link"><i class="fas fa-code"></i> الترميز</a></li>
+                <li><a href="#simulator" class="nav-link"><i class="fas fa-network-wired"></i> المحاكاة</a></li>
+                <li><a href="#features" class="nav-link"><i class="fas fa-star"></i> المميزات</a></li>
+                <li><a href="#about" class="nav-link"><i class="fas fa-user"></i> عن المطور</a></li>
+            </ul>
+
+            <!-- Right Section -->
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="logo-brand">
+                <div class="logo-icon">
+                    <i class="fas fa-satellite-dish"></i>
+                </div>
+                <div class="logo-text">
+                    <h3>Reed-Solomon</h3>
+                </div>
+            </div>
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-nav">
+            <li><a href="#home" class="mobile-nav-link"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="#encoder" class="mobile-nav-link"><i class="fas fa-code"></i> الترميز</a></li>
+            <li><a href="#simulator" class="mobile-nav-link"><i class="fas fa-network-wired"></i> المحاكاة</a></li>
+            <li><a href="#features" class="mobile-nav-link"><i class="fas fa-star"></i> المميزات</a></li>
+            <li><a href="#about" class="mobile-nav-link"><i class="fas fa-user"></i> عن المطور</a></li>
+        </ul>
+        <div class="mobile-footer">
+            <p class="developer-tag">
+                <i class="fas fa-code"></i>
+                المطور: حسين فاهم الخزعلي
+            </p>
+            <p class="contact-small">
+                husseinfaheem6@gmail.com
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-text" data-aos="fade-up" data-aos-duration="1000">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">نظام متكامل</span>
+                        <br>لتصحيح أخطاء الإرسال
+                    </h1>
+                    <p class="hero-subtitle">
+                        باستخدام خوارزمية <span class="highlight">Reed-Solomon</span> المتقدمة
+                    </p>
+                    <p class="hero-description">
+                        نظام احترافي لاكتشاف وتصحيح الأخطاء التلقائية في أنظمة الاتصالات الحديثة. 
+                        يحسن من موثوقية نقل البيانات عبر القنوات المشوشة بأقصى كفاءة.
+                    </p>
+                    <div class="developer-byline">
+                        <i class="fas fa-user"></i>
+                        <span>مطور النظام: <strong>المهندس حسين فاهم الخزعلي</strong></span>
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="#encoder" class="btn btn-primary btn-lg">
+                            <i class="fas fa-play-circle"></i> ابدأ التجربة الآن
+                        </a>
+                        <a href="#features" class="btn btn-outline btn-lg">
+                            <i class="fas fa-info-circle"></i> تعرف على المميزات
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual" data-aos="fade-left" data-aos-duration="1200">
+                    <div class="transmission-animation">
+                        <div class="animation-container">
+                            <div class="data-flow">
+                                <div class="source-node">
+                                    <div class="node-icon">
+                                        <i class="fas fa-database"></i>
+                                    </div>
+                                    <div class="node-label">مصدر البيانات</div>
+                                </div>
+                                
+                                <div class="transmission-line">
+                                    <div class="data-packet correct" data-bit="1">1</div>
+                                    <div class="data-packet correct" data-bit="0">0</div>
+                                    <div class="data-packet error" data-bit="1">1</div>
+                                    <div class="data-packet correct" data-bit="1">1</div>
+                                    <div class="data-packet parity" data-bit="P">P</div>
+                                    <div class="data-packet parity" data-bit="P">P</div>
+                                </div>
+                                
+                                <div class="noise-effect">
+                                    <div class="noise-wave"></div>
+                                    <div class="noise-label">قناة اتصال</div>
+                                </div>
+                                
+                                <div class="destination-node">
+                                    <div class="node-icon">
+                                        <i class="fas fa-server"></i>
+                                    </div>
+                                    <div class="node-label">وجهة البيانات</div>
+                                </div>
+                            </div>
+                            <div class="status-indicator">
+                                <div class="status success">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>نقل ناجح</span>
+                                </div>
+                                <div class="statistics">
+                                    <span class="stat"><i class="fas fa-bolt"></i> كفاءة 99%</span>
+                                    <span class="stat"><i class="fas fa-shield-alt"></i> تصحيح تلقائي</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="99">0</div>
+                    <div class="stat-label">نسبة النجاح</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-label">تصحيح أخطاء</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="100">0</div>
+                    <div class="stat-label">سرعة معالجة</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="24">0</div>
+                    <div class="stat-label">تطبيق عملي</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Encoder Section -->
+        <section id="encoder" class="section encoder-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <i class="fas fa-code"></i>
+                    </span>
+                    نظام الترميز المتقدم
+                </h2>
+                <p class="section-subtitle">قم بترميز بياناتك باستخدام خوارزمية Reed-Solomon</p>
+            </div>
+            
+            <div class="encoder-container">
+                <div class="encoder-card input-card" data-aos="fade-right" data-aos-duration="800">
+                    <div class="card-header">
+                        <h3><i class="fas fa-keyboard"></i> إدخال البيانات</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="inputData" class="form-label">
+                                <i class="fas fa-font"></i> النص المدخل
+                            </label>
+                            <textarea 
+                                id="inputData" 
+                                class="form-textarea" 
+                                placeholder="أدخل النص المراد ترميزه هنا..."
+                                rows="6"
+                            >مرحبا بك في نظام Reed-Solomon المتقدم لتصحيح أخطاء الإرسال</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="nsym" class="form-label">
+                                <i class="fas fa-sliders-h"></i> قوة التصحيح (nsym)
+                                <span class="badge" id="nsymValue">10</span>
+                            </label>
+                            <div class="slider-container">
+                                <input type="range" id="nsym" min="4" max="50" value="10" class="form-slider">
+                                <div class="slider-labels">
+                                    <span>منخفض</span>
+                                    <span>متوسط</span>
+                                    <span>عالي</span>
+                                    <span>قصوى</span>
+                                </div>
+                            </div>
+                            <p class="form-hint">
+                                <i class="fas fa-info-circle"></i>
+                                كلما زادت القيمة، زادت قوة التصحيح لكن حجم البيانات يزيد
+                            </p>
+                        </div>
+                        
+                        <button id="encodeBtn" class="btn btn-primary btn-block btn-encode">
+                            <i class="fas fa-cogs"></i>
+                            <span>ترميز البيانات</span>
+                            <div class="btn-loading" id="encodeLoading">
+                                <div class="spinner-small"></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="encoder-card output-card" data-aos="fade-left" data-aos-duration="800">
+                    <div class="card-header">
+                        <h3><i class="fas fa-file-code"></i> النتائج</h3>
+                        <div class="card-actions">
+                            <button class="btn-icon" id="copyResults" title="نسخ النتائج">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="btn-icon" id="clearResults" title="مسح النتائج">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="results-display">
+                            <div class="result-tabs">
+                                <button class="result-tab active" data-tab="encoded">البيانات المشفرة</button>
+                                <button class="result-tab" data-tab="stats">الإحصائيات</button>
+                                <button class="result-tab" data-tab="hex">عرض Hex</button>
+                            </div>
+                            
+                            <div class="result-content">
+                                <div class="tab-content active" id="encodedTab">
+                                    <div class="encoded-display" id="encodedData">
+                                        <div class="placeholder">
+                                            <i class="fas fa-code"></i>
+                                            <p>ستظهر البيانات المشفرة هنا بعد الترميز</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-content" id="statsTab">
+                                    <div class="stats-grid">
+                                        <div class="stat-card">
+                                            <div class="stat-icon">
+                                                <i class="fas fa-file-alt"></i>
+                                            </div>
+                                            <div class="stat-info">
+                                                <div class="stat-value" id="originalLength">--</div>
+                                                <div class="stat-label">حجم البيانات الأصلية</div>
+                                            </div>
+                                        </div>
+                                        <div class="stat-card">
+                                            <div class="stat-icon">
+                                                <i class="fas fa-file-code"></i>
+                                            </div>
+                                            <div class="stat-info">
+                                                <div class="stat-value" id="encodedLength">--</div>
+                                                <div class="stat-label">حجم البيانات المشفرة</div>
+                                            </div>
+                                        </div>
+                                        <div class="stat-card">
+                                            <div class="stat-icon">
+                                                <i class="fas fa-shield-alt"></i>
+                                            </div>
+                                            <div class="stat-info">
+                                                <div class="stat-value" id="parityBytes">--</div>
+                                                <div class="stat-label">بايتات التصحيح</div>
+                                            </div>
+                                        </div>
+                                        <div class="stat-card">
+                                            <div class="stat-icon">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                            <div class="stat-info">
+                                                <div class="stat-value" id="overhead">--</div>
+                                                <div class="stat-label">نسبة الزيادة</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-content" id="hexTab">
+                                    <div class="hex-display" id="hexData">
+                                        <div class="placeholder">
+                                            <i class="fas fa-memory"></i>
+                                            <p>عرض البيانات بصيغة Hexadecimal</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simulator Section -->
+        <section id="simulator" class="section simulator-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </span>
+                    محاكاة قناة الإرسال
+                </h2>
+                <p class="section-subtitle">شاهد قدرة النظام على تصحيح الأخطاء في الوقت الفعلي</p>
+            </div>
+            
+            <div class="simulator-container">
+                <!-- Controls -->
+                <div class="simulator-controls" data-aos="fade-up" data-aos-duration="800">
+                    <div class="control-panel">
+                        <h3><i class="fas fa-sliders-h"></i> إعدادات المحاكاة</h3>
+                        
+                        <div class="control-group">
+                            <label for="errorRate" class="control-label">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                نسبة الأخطاء
+                                <span class="badge badge-danger" id="errorRateValue">15%</span>
+                            </label>
+                            <input type="range" id="errorRate" min="0" max="50" value="15" class="control-slider">
+                            <div class="slider-ticks">
+                                <span>0%</span>
+                                <span>25%</span>
+                                <span>50%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label for="errorType" class="control-label">
+                                <i class="fas fa-bug"></i>
+                                نوع الأخطاء
+                            </label>
+                            <div class="error-type-buttons">
+                                <button class="error-type-btn active" data-type="random">
+                                    <i class="fas fa-random"></i>
+                                    <span>عشوائية</span>
+                                </button>
+                                <button class="error-type-btn" data-type="burst">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>متتالية</span>
+                                </button>
+                                <button class="error-type-btn" data-type="erasures">
+                                    <i class="fas fa-eraser"></i>
+                                    <span>حذف بيانات</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label class="control-label">
+                                <i class="fas fa-broadcast-tower"></i>
+                                نوع القناة
+                            </label>
+                            <div class="channel-type">
+                                <div class="channel-option active">
+                                    <i class="fas fa-wifi"></i>
+                                    <span>لاسلكية</span>
+                                </div>
+                                <div class="channel-option">
+                                    <i class="fas fa-satellite"></i>
+                                    <span>فضائية</span>
+                                </div>
+                                <div class="channel-option">
+                                    <i class="fas fa-hdd"></i>
+                                    <span>تخزين</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button id="simulateBtn" class="btn btn-success btn-block btn-simulate">
+                            <i class="fas fa-play"></i>
+                            <span>تشغيل المحاكاة</span>
+                            <div class="btn-loading" id="simulateLoading">
+                                <div class="spinner-small"></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Visualization -->
+                <div class="simulator-visualization" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="transmission-flow">
+                        <!-- Step 1: Original -->
+                        <div class="flow-step" data-step="1">
+                            <div class="step-header">
+                                <div class="step-number">1</div>
+                                <h4>البيانات الأصلية</h4>
+                            </div>
+                            <div class="step-content">
+                                <div class="data-visual" id="originalVisual">
+                                    <!-- سيتم تعبئته بالجافاسكريبت -->
+                                </div>
+                                <div class="step-label">
+                                    <i class="fas fa-database"></i>
+                                    بيانات نظيفة
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 2: Encoded -->
+                        <div class="flow-step" data-step="2">
+                            <div class="step-header">
+                                <div class="step-number">2</div>
+                                <h4>بعد الترميز</h4>
+                            </div>
+                            <div class="step-content">
+                                <div class="data-visual" id="encodedVisual">
+                                    <!-- سيتم تعبئته بالجافاسكريبت -->
+                                </div>
+                                <div class="step-label">
+                                    <i class="fas fa-code"></i>
+                                    مع رموز تصحيح
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 3: Transmission -->
+                        <div class="flow-step error-step" data-step="3">
+                            <div class="step-header">
+                                <div class="step-number">3</div>
+                                <h4>خلال القناة</h4>
+                            </div>
+                            <div class="step-content">
+                                <div class="data-visual" id="corruptedVisual">
+                                    <!-- سيتم تعبئته بالجافاسكريبت -->
+                                </div>
+                                <div class="error-overlay">
+                                    <div class="noise-animation">
+                                        <i class="fas fa-wave-square"></i>
+                                        <span>ضوضاء</span>
+                                    </div>
+                                </div>
+                                <div class="step-label error-label">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    بيانات مشوشة
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 4: Corrected -->
+                        <div class="flow-step" data-step="4">
+                            <div class="step-header">
+                                <div class="step-number">4</div>
+                                <h4>بعد التصحيح</h4>
+                            </div>
+                            <div class="step-content">
+                                <div class="data-visual" id="correctedVisual">
+                                    <!-- سيتم تعبئته بالجافاسكريبت -->
+                                </div>
+                                <div class="correction-indicator">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>تم التصحيح</span>
+                                </div>
+                                <div class="step-label success-label">
+                                    <i class="fas fa-check"></i>
+                                    بيانات مصححة
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Results -->
+                    <div class="simulation-results">
+                        <div class="results-header">
+                            <h3><i class="fas fa-chart-bar"></i> نتائج المحاكاة</h3>
+                            <button class="btn-icon" id="exportResults">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                        <div class="results-grid">
+                            <div class="result-card success-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="result-content">
+                                    <div class="result-value" id="successRate">100%</div>
+                                    <div class="result-label">معدل النجاح</div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card error-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="result-content">
+                                    <div class="result-value" id="totalErrors">0</div>
+                                    <div class="result-label">أخطاء مضافة</div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card correction-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-wrench"></i>
+                                </div>
+                                <div class="result-content">
+                                    <div class="result-value" id="errorsCorrected">0</div>
+                                    <div class="result-label">أخطاء مصححة</div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card limit-card">
+                                <div class="result-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="result-content">
+                                    <div class="result-value" id="maxCorrectable">5</div>
+                                    <div class="result-label">الحد الأقصى</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section features-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <i class="fas fa-star"></i>
+                    </span>
+                    مميزات النظام
+                </h2>
+                <p class="section-subtitle">اكتشف القوة الكاملة لنظام Reed-Solomon</p>
+            </div>
+            
+            <div class="features-container">
+                <div class="feature-card" data-aos="fade-up" data-aos-duration="600">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>سرعة عالية</h3>
+                    <p>معالجة البيانات في الوقت الفعلي مع أداء عالي السرعة وكفاءة في استخدام الموارد</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-duration="800">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>تصحيح قوي</h3>
+                    <p>القدرة على تصحيح حتى 50% من الأخطاء في البيانات مع ضمان دقة وسلامة المعلومات</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>مرونة كاملة</h3>
+                    <p>تخصيص معاملات التصحيح حسب احتياجات النظام مع دعم أنواع مختلفة من الأخطاء</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-duration="1200">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>تحليلات متقدمة</h3>
+                    <p>إحصائيات مفصلة وتقارير دقيقة عن أداء النظام وكفاءة التصحيح</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section about-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    عن المطور
+                </h2>
+                <p class="section-subtitle">معلومات عن مصمم ومطور النظام</p>
+            </div>
+            
+            <div class="about-container">
+                <div class="developer-card" data-aos="fade-right" data-aos-duration="800">
+                    <div class="developer-header">
+                        <div class="developer-avatar">
+                            <div class="avatar-icon">
+                                <i class="fas fa-user-astronaut"></i>
+                            </div>
+                        </div>
+                        <div class="developer-info">
+                            <h3 class="developer-name">المهندس حسين فاهم الخزعلي</h3>
+                            <p class="developer-title">مهندس برمجيات ومطور ويب</p>
+                            <div class="developer-tags">
+                                <span class="tag">تطوير الويب</span>
+                                <span class="tag">أنظمة اتصالات</span>
+                                <span class="tag">تصحيح الأخطاء</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="developer-bio">
+                        <p>
+                            مهندس ومطور برمجيات مهتم بأنظمة الاتصالات ومعالجة الإشارات الرقمية.
+                            أطور حلول برمجية عملية لمشاكل التواصل ونقل البيانات.
+                        </p>
+                    </div>
+                    
+                    <div class="developer-skills">
+                        <h4><i class="fas fa-cogs"></i> المهارات التقنية</h4>
+                        <div class="skills-list">
+                            <div class="skill-item">
+                                <span class="skill-name">تطوير الويب</span>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">برمجة Python</span>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">أنظمة اتصالات</span>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">تصميم واجهات</span>
+                                <div class="skill-bar">
+                                    <div class="skill-level" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="developer-contact">
+                        <h4><i class="fas fa-envelope"></i> معلومات التواصل</h4>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>husseinfaheem6@gmail.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+964 771 616 7814</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-content" data-aos="fade-left" data-aos-duration="800">
+                    <div class="about-card">
+                        <h3><i class="fas fa-history"></i> عن المشروع</h3>
+                        <p>
+                            نظام Reed-Solomon لتصحيح أخطاء الإرسال هو مشروع تعليمي تطبيقي
+                            يهدف إلى تقديم أداة عملية لفهم وتجربة خوارزميات تصحيح الأخطاء
+                            المستخدمة في أنظمة الاتصالات.
+                        </p>
+                        <p>
+                            تم تطوير هذا النظام ليكون سهل الاستخدام مع الحفاظ على الدقة
+                            التقنية المطلوبة في محاكاة قنوات الاتصال الحقيقية.
+                        </p>
+                    </div>
+                    
+                    <div class="about-card">
+                        <h3><i class="fas fa-rocket"></i> أهداف المشروع</h3>
+                        <ul class="applications-list">
+                            <li><i class="fas fa-check-circle"></i> تقديم أداة تعليمية عملية</li>
+                            <li><i class="fas fa-check-circle"></i> تبسيط مفاهيم تصحيح الأخطاء</li>
+                            <li><i class="fas fa-check-circle"></i> توفير بيئة تجريبية تفاعلية</li>
+                            <li><i class="fas fa-check-circle"></i> دعم الطلاب والباحثين</li>
+                            <li><i class="fas fa-check-circle"></i> تعزيز المعرفة التقنية</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="about-card">
+                        <h3><i class="fas fa-graduation-cap"></i> للاستخدام التعليمي</h3>
+                        <p>
+                            النظام مناسب للاستخدام في:
+                        </p>
+                        <div class="education-tags">
+                            <span class="edu-tag">المختبرات التعليمية</span>
+                            <span class="edu-tag">البحوث الجامعية</span>
+                            <span class="edu-tag">ورش العمل</span>
+                            <span class="edu-tag">التدريب التقني</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h3>Reed-Solomon</h3>
+                        <p>نظام تصحيح الأخطاء المتقدم</p>
+                    </div>
+                </div>
+                <p class="footer-description">
+                    نظام متكامل لتصحيح أخطاء الإرسال باستخدام خوارزمية 
+                    Reed-Solomon، مصمم ليكون أداة تعليمية وعملية متقدمة.
+                </p>
+                <div class="footer-signature">
+                    <p>
+                        <i class="fas fa-code"></i>
+                        تصميم وتطوير: 
+                        <span class="signature-name">المهندس حسين فاهم الخزعلي</span>
+                    </p>
+                    <p class="contact-small">
+                        <i class="fas fa-envelope"></i> husseinfaheem6@gmail.com | 
+                        <i class="fas fa-phone"></i> 07716167814
+                    </p>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-title">روابط سريعة</h4>
+                <ul class="footer-links">
+                    <li><a href="#home"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                    <li><a href="#encoder"><i class="fas fa-chevron-left"></i> نظام الترميز</a></li>
+                    <li><a href="#simulator"><i class="fas fa-chevron-left"></i> المحاكاة</a></li>
+                    <li><a href="#features"><i class="fas fa-chevron-left"></i> المميزات</a></li>
+                    <li><a href="#about"><i class="fas fa-chevron-left"></i> عن المطور</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-title">التقنيات المستخدمة</h4>
+                <div class="tech-stack">
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">Reed-Solomon</span>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-title">تواصل معنا</h4>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="social-link" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="social-link" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="mailto:husseinfaheem6@gmail.com" class="social-link" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+                <div class="footer-contact">
+                    <p><i class="fas fa-copyright"></i> جميع الحقوق محفوظة © 2025</p>
+                    <p>الإصدار: 2.0.0 | آخر تحديث: ديسمبر 2025</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>
+                <i class="fas fa-heart"></i>
+                تم التطوير بحب لخدمة المجتمع التقني العربي
+            </p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // تهيئة AOS للأنيميشن
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // إخفاء شاشة التحميل
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
