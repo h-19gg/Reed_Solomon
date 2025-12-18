@@ -1,6 +1,8 @@
 // ===== Configuration =====
 const CONFIG = {
-    API_BASE_URL: 'http://localhost:8000',
+    // ⚠️ غيّر هذا السطر فقط ⚠️
+    API_BASE_URL: 'https://read-solomon-git-main-eng-hussein-fahime-projects.vercel.app/api',
+    
     DEFAULT_NSYM: 10,
     DEFAULT_ERROR_RATE: 15,
     DEVELOPER: {
@@ -937,4 +939,5 @@ if (typeof AOS !== 'undefined') {
         once: true,
         offset: 100
     });
+
 }
